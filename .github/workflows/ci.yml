@@ -46,19 +46,16 @@ jobs:
       run: echo '${{ toJSON(matrix) }}'
 
   job-a:
-    runs-on: [self-hosted,Linux,X64]
     needs: parse_user_settings
     if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-a') }}
     uses: kamoteam/workflows/.github/workflows/job-a.yml@main
   
   job-b:
-    runs-on: [self-hosted,Linux,X64]
     needs: job-a
     if: ${{ contains(needs.parse_user_settings.outputs.required_jobs,'job-b') }}
     uses: kamoteam/workflows/.github/workflows/job-b.yml@main
   
   job-c:
-    runs-on: [self-hosted,Linux,X64]
     needs: job-b
     if: ${{ contains(needs.parse_user_settings.outputs.required_jobs,'job-c') }}
     uses: kamoteam/workflows/.github/workflows/job-c.yml@main
