@@ -18,6 +18,7 @@ jobs:
 
     - name: Convert toml to json
       run: |
+        cat ${PWD}/apps/Setting.toml
         cat ${PWD}/apps/Setting.toml | docker run -i --rm -v ${PWD}:${PWD} --workdir=${PWD} ghcr.io/tomwright/dasel:latest -p toml -w json  > ${GITHUB_WORKSPACE}/apps/Setting.json
         echo ${{ secrets.RUNNER_SUDO_PASSWD }} | sudo -S chown -R ${USER} ${GITHUB_WORKSPACE}
 
