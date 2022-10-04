@@ -31,9 +31,9 @@ jobs:
         echo "debug"
         echo "${{ steps.required_jobs.outputs.required_jobs }}"
 
-          - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
+    - name: Dump GitHub context
+      id: github_context_step
+      run: echo '${{ toJSON(github) }}'
 
     - name: Dump job context
       run: echo '${{ toJSON(job) }}'
