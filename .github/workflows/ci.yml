@@ -1,8 +1,9 @@
 name: 'CI'
 
 on: 
-  - repository_dispatch
-  - workflow_dispatch
+  repository_dispatch:
+    types: [trigger]
+  workflow_dispatch:
 
 jobs:
   parse_user_settings:
