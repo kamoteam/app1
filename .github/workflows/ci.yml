@@ -69,3 +69,20 @@ jobs:
     if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs, 'job-c' ) }}
     uses: kamoteam/workflows/.github/workflows/job-c.yml@main
     secrets: inherit
+
+  tear-down:
+    name: "Tear Down"
+    runs-on: [self-hosted,Linux,X64]
+    steps:
+    - name: Reset Permission
+      run: |
+        echo ${{ secrets.RUNNER_SUDO_PASSWD }} | sudo -S chown -R ${USER} ${GITHUB_WORKSPACE}
+
+    - uses: actions/checkout@v3
+
+    - name: "Wait for 10s"
+      shell: bash
+      run: |
+        sleep 10s
+      
+
