@@ -53,7 +53,7 @@ jobs:
 
   job-a:
     needs: parse_user_settings
-    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs, toJSON(github.job)) }}
+    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs, github.job ) }}
     uses: kamoteam/workflows/.github/workflows/job-a.yml@main
     secrets: inherit
 
