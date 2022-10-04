@@ -35,6 +35,12 @@ jobs:
       id: github_context_step
       run: echo '${{ toJSON(github) }}'
 
+    - name: Dump GitHub context
+      id: github_context_step
+      run: |
+        echo '${{ toJSON(github.job) }}'
+        echo '${{ github.job }}'
+
     - name: Dump job context
       run: echo '${{ toJSON(job) }}'
     - name: Dump steps context
@@ -48,18 +54,18 @@ jobs:
 
   job-a:
     needs: parse_user_settings
-    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs, ${{ github.job }}) }}
+    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-a') }}
     uses: kamoteam/workflows/.github/workflows/job-a.yml@main
     secrets: inherit
 
   job-b:
     needs: job-a
-    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs, ${{ github.job }}) }}
+    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-b') }}
     uses: kamoteam/workflows/.github/workflows/job-b.yml@main
     secrets: inherit
 
   job-c:
     needs: job-b
-    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs, ${{ github.job }}) }}
+    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-c') }}
     uses: kamoteam/workflows/.github/workflows/job-c.yml@main
     secrets: inherit
