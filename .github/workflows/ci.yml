@@ -46,20 +46,20 @@ jobs:
     - name: Dump matrix context
       run: echo '${{ toJSON(matrix) }}'
 
-  # job-a:
-  #   needs: parse_user_settings
-  #   if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-a') }}
-  #   uses: kamoteam/workflows/.github/workflows/job-a.yml@main
-  #   secrets: inherit
+  job-a:
+    needs: parse_user_settings
+    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-a') }}
+    uses: kamoteam/workflows/.github/workflows/job-a.yml@main
+    secrets: inherit
 
-  # job-b:
-  #   needs: job-a
-  #   if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-b') }}
-  #   uses: kamoteam/workflows/.github/workflows/job-b.yml@main
-  #   secrets: inherit
+  job-b:
+    needs: job-a
+    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-b') }}
+    uses: kamoteam/workflows/.github/workflows/job-b.yml@main
+    secrets: inherit
 
-  # job-c:
-  #   needs: job-b
-  #   if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-c') }}
-  #   uses: kamoteam/workflows/.github/workflows/job-c.yml@main
-  #   secrets: inherit
+  job-c:
+    needs: job-b
+    if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs,'job-c') }}
+    uses: kamoteam/workflows/.github/workflows/job-c.yml@main
+    secrets: inherit
