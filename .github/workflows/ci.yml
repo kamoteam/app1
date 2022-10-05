@@ -84,6 +84,6 @@ jobs:
     - name: "Wait for 10s"
       shell: bash
       run: |
-        sleep 10s
+        sleep 30s
       
 
