@@ -52,6 +52,15 @@ jobs:
     - name: Dump matrix context
       run: echo '${{ toJSON(matrix) }}'
 
+    - name: empty Upload
+      run: |
+        mkdir -p artifacts
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        path: artifacts
+        name: artifacts
+
   job-a:
     needs: parse_user_settings
     if: ${{ always() && contains(needs.parse_user_settings.outputs.required_jobs, 'job-a' ) }}
