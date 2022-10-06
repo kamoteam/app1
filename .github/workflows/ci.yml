@@ -24,6 +24,7 @@ jobs:
         echo ${{ secrets.RUNNER_SUDO_PASSWD }} | sudo -S chown -R ${USER} ${GITHUB_WORKSPACE}
 
     - name: Check required jobs
+      if: ${{ github.event_name != 'repository_dispatch'}}
       id: required_jobs
       run: |
         REQUIED_JOBS=$(jq -r '.ci.jobs | map(select(.required == true)| .name)|unique' ${GITHUB_WORKSPACE}/apps/Setting.json | jq -rc)
@@ -31,6 +32,12 @@ jobs:
         echo "::set-output name=required_jobs::${REQUIED_JOBS}"
         echo "debug"
         echo "${{ steps.required_jobs.outputs.required_jobs }}"
+    
+    - name: Check required jobs on "Cluster-Integration"
+      if: ${{ github.event_name == 'repository_dispatch' && github.event.action == "Cluster-Integration" }}
+      id: required_jobs
+      run: |
+        echo "test"
 
     - name: Dump GitHub context
       id: github_context_step
