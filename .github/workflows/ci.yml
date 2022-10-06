@@ -34,7 +34,7 @@ jobs:
         echo "${{ steps.required_jobs.outputs.required_jobs }}"
     
     - name: Check required jobs on "Cluster-Integration"
-      if: ${{ github.event.action == "Cluster-Integration" }}
+      if: github.event.action == "Cluster-Integration"
       id: required_jobs
       run: |
         echo "test"
